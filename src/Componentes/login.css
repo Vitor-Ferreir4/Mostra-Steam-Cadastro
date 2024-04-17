@@ -18,9 +18,11 @@ h2 {
     text-decoration: none;
     font-size: 16px;
     top: 20px;
-    border: none;
     cursor: pointer;
+    border: 1px solid #000;
+    border-radius: 5px;
 }
+
 form {
     width: 400px;
     height: 400px;
@@ -39,10 +41,12 @@ label {
     font-weight: bold;
     border-radius: 5%;
 }
+
 input {
     border-radius: 8px;
     margin-bottom: 20px;
 }
+
 input[type="text"] {
     position: relative;
     width: 100%;
@@ -50,6 +54,7 @@ input[type="text"] {
     bottom: 10px;
     top: 10px;
 }
+
 input[type="password"] {
     position: relative;
     width: 100%;
@@ -86,3 +91,18 @@ input[type="submit"]:hover {
     font-size: calc(12px);
     cursor: pointer;
 }
+
+.error-message {
+    position: relative;
+    color: #e2031a;
+    top: -132px;
+    font-size: calc(18px);
+  }
+  
+  .Google-Imagem{
+    width: 45px;
+    position: relative;
+    top: 15px;
+    right:15px
+  }
+  

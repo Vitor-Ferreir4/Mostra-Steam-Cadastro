@@ -1,12 +1,13 @@
 import React from 'react';
-import './login.css'
+import './login.css';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      errorMessage: ''
     };
   }
 
@@ -16,19 +17,51 @@ class Login extends React.Component {
     const value = target.value;
 
     this.setState({
-      [name]: value
+      [name]: value,
+      errorMessage: ''
     });
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
+    const { username, password } = this.state;
+
+    if (!this.isValidEmail(username)) {
+      this.setState({ errorMessage: 'Por favor, insira um email válido.' });
+      return;
+    }
+
+    try {
+
+      this.setState({
+        username: '',
+        password: '',
+        errorMessage: ''
+      });
+
+    } catch (error) {
+      this.setState({ errorMessage: 'Credenciais inválidas. Por favor, tente novamente.' });
+    }
+  }
+
+  isValidEmail = (email) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  }
+
+  isValidPassword = (password) => {
+    const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+    return passwordPattern.test(password);
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
         <h2>LOGIN</h2>
-        <button type="button" className='Botao-Google'>Continue com Google</button>
+        <button type="button" className='Botao-Google'>
+          <img className='Google-Imagem' src={require('../assets/Google.png')} alt=""/>
+          Continue com o Google
+        </button>
         <input 
           type="text" 
           id="username" 
@@ -36,7 +69,7 @@ class Login extends React.Component {
           placeholder="Email" 
           required 
           value={this.state.username} 
-          onChange={this.handleInputChange} 
+          onChange={this.handleInputChange}
         />
         <br />
         <input 
@@ -49,6 +82,7 @@ class Login extends React.Component {
           onChange={this.handleInputChange} 
         />
         <br />
+        {this.state.errorMessage && <div className="error-message">{this.state.errorMessage}</div>}
         <br />
         <a href=''>
             <div className="esqueceu-senha">
