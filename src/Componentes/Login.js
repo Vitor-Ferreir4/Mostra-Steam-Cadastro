@@ -59,8 +59,10 @@ class Login extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <h2>LOGIN</h2>
         <button type="button" className='Botao-Google'>
-          <img className='Google-Imagem' src={require('../assets/Google.png')} alt=""/>
-          Continue com o Google
+          <img className='Google-Imagem' src={require('../assets/Google.png')} alt=""/>  
+          <div className='texto-google'>
+            Continue com o Google
+          </div>
         </button>
         <input 
           type="text" 
