@@ -1,0 +1,53 @@
+h2 {
+    position: relative;
+    font-family: 'Roboto';
+    font-size: 28px;
+    text-align: center;
+    color: #333;
+    bottom: 30px;
+}
+
+form {
+    position: relative;
+    width: 400px;
+    top: 50px;
+    padding: 50px;
+    background-color: transparent;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 2);
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+input {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #444;
+}
+
+.error-message {
+    color: #e2031a;
+    font-size: 14px;
+    margin-top: 10px;
+}

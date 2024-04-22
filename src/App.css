@@ -23,9 +23,9 @@
 
 .Imagem-Mulher{
   position: relative;
-  bottom: 620px;
-  left: 500px;
+  bottom: 638px;
+  left: 542px;
   z-index: 0;
   filter: blur(2px);
-
+  height: 780px;
 }
