@@ -26,24 +26,51 @@ class Cadastro extends React.Component {
     });
   }
 
+  isValidEmail = (email) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  }
+
+  isValidPassword = (password) => {
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,}$/;
+    return passwordPattern.test(password);
+  }
+
+  isValidDate = (date) => {
+    const datePattern = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+    if (!datePattern.test(date)) return false;
+    const [day, month, year] = date.split('/');
+    const parsedDate = new Date(`${year}-${month}-${day}`);
+    const currentDate = new Date();
+    const minBirthDate = new Date(currentDate.getFullYear() - 120, currentDate.getMonth(), currentDate.getDate()); // 120 anos atrás
+    return parsedDate instanceof Date && !isNaN(parsedDate) && parsedDate <= currentDate && parsedDate >= minBirthDate;
+  }
+
   handleSubmit = async (event) => {
     event.preventDefault();
     const { nome, sobrenome, username, password, confirmaPassword, dataNascimento } = this.state;
 
-    // Verificar se as senhas coincidem
     if (password !== confirmaPassword) {
       this.setState({ errorMessage: 'As senhas não coincidem.' });
       return;
     }
 
-    // Verificar se a data de nascimento é válida (apenas para fins de demonstração)
+    if (!this.isValidPassword(password)) {
+      this.setState({ errorMessage: 'A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial, e ter no mínimo 8 caracteres.' });
+      return;
+    }
+
+    if (!this.isValidEmail(username)) {
+      this.setState({ errorMessage: 'Por favor, insira um e-mail válido.' });
+      return;
+    }
+
     if (!this.isValidDate(dataNascimento)) {
       this.setState({ errorMessage: 'Por favor, insira uma data de nascimento válida.' });
       return;
     }
 
     try {
-      // Lógica para enviar os dados do formulário para o backend ou qualquer outra ação necessária
 
       this.setState({
         nome: '',
@@ -60,26 +87,9 @@ class Cadastro extends React.Component {
     }
   }
 
-  isValidEmail = (email) => {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailPattern.test(email);
-  }
-
-  isValidDate = (date) => {
-    // Verificar se a data possui o formato correto (DD/MM/AAAA)
-    const datePattern = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-    if (!datePattern.test(date)) return false;
-
-    // Verificar se a data é válida
-    const [day, month, year] = date.split('/');
-    const parsedDate = new Date(`${year}-${month}-${day}`);
-    return parsedDate instanceof Date && !isNaN(parsedDate);
-  }
-  
   render() {
     return (
-    
-        <form onSubmit={this.handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
         <div className='realizecadastro'>
           <h2>REALIZE O SEU CADASTRO!</h2>
         </div>
@@ -92,7 +102,6 @@ class Cadastro extends React.Component {
           value={this.state.nome} 
           onChange={this.handleInputChange}
           className='formsss'
-          
         />
         <br />
         <input 
@@ -104,7 +113,6 @@ class Cadastro extends React.Component {
           value={this.state.sobrenome} 
           onChange={this.handleInputChange}
           className='formsss'
-          
         />
         <br />
         <input 
@@ -116,7 +124,6 @@ class Cadastro extends React.Component {
           value={this.state.username} 
           onChange={this.handleInputChange}
           className='formsss'
-          
         />
         <br />
         <input 
